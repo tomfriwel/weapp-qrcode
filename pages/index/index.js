@@ -1,24 +1,23 @@
 // pages/index/index.js
-var QRCode = require('../../utils/qrcode.js')
+var QRCode = require('../../utils/weapp-qrcode.js')
 
 var qrcode;
 
 Page({
     data: {
-        text: 'http://jindo.dev.naver.com/collie'
+        text: 'https://github.com/tomfriwel/weapp-qrcode'
     },
     onLoad: function (options) {
         qrcode = new QRCode('canvas', {
-            text: "http://jindo.dev.naver.com/collie",
+            text: "https://github.com/tomfriwel/weapp-qrcode",
             width: 150,
             height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
+            colorDark: "#1CA4FC",
+            colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
     },
     confirmHandler: function (e) {
-        console.log(e)
         var value = e.detail.value
         qrcode.makeCode(value)
     },
@@ -29,6 +28,23 @@ Page({
         })
     },
     tapHandler: function () {
+        // 传入字符串生成qrcode
         qrcode.makeCode(this.data.text)
+    },
+    save:function() {
+        console.log('save')
+        wx.showActionSheet({
+            itemList: ['保存图片'],
+            success: function (res) {
+                console.log(res.tapIndex)
+                if(res.tapIndex==0) {
+                    qrcode.exportImage(function(path){
+                        wx.saveImageToPhotosAlbum({
+                            filePath: path,
+                        })
+                    })
+                }
+            }
+        })
     }
 })
