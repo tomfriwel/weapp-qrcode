@@ -1,5 +1,5 @@
 # weapp-qrcode
-微信小程序生成二维码工具
+微信小程序生成二维码工具    
 
 > 生成二维码数据的主要代码来自[davidshimjs/qrcodejs](https://github.com/davidshimjs/qrcodejs)，因为它这个里面生成二维码图片的功能在微信小程序里不能使用，我将这个功能改写成可以在微信小程序中使用。
 
