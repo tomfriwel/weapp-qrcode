@@ -34,3 +34,7 @@ var qrcode = new QRCode('canvas', {
 `correctLevel`没有细看源码，命名上看应该是准确度；
 
 如果需要再次生成二维码，调用`qrcode.makeCode('text you want convert')`。
+
+## 主要流程
+
+<img src="weapp-qrcode.001.png" width="800" /> 
