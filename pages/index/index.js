@@ -5,11 +5,13 @@ var qrcode;
 
 Page({
     data: {
-        text: 'https://github.com/tomfriwel/weapp-qrcode'
+        text: 'https://github.com/tomfriwel/weapp-qrcode',
+        image: ''
     },
     onLoad: function (options) {
         qrcode = new QRCode('canvas', {
             text: "https://github.com/tomfriwel/weapp-qrcode",
+            image:'/images/bg.jpg',
             width: 150,
             height: 150,
             colorDark: "#1CA4FC",
@@ -31,14 +33,14 @@ Page({
         // 传入字符串生成qrcode
         qrcode.makeCode(this.data.text)
     },
-    save:function() {
+    save: function () {
         console.log('save')
         wx.showActionSheet({
             itemList: ['保存图片'],
             success: function (res) {
                 console.log(res.tapIndex)
-                if(res.tapIndex==0) {
-                    qrcode.exportImage(function(path){
+                if (res.tapIndex == 0) {
+                    qrcode.exportImage(function (path) {
                         wx.saveImageToPhotosAlbum({
                             filePath: path,
                         })

@@ -328,38 +328,72 @@ var QRCode;
         var nRoundedWidth = Math.round(nWidth);
         var nRoundedHeight = Math.round(nHeight);
 
+        if (_htOption.image && _htOption.image != '') {
+            _oContext.drawImage(_htOption.image, 0, 0, _htOption.width, _htOption.height)
+        }
+
         for (var row = 0; row < nCount; row++) {
             for (var col = 0; col < nCount; col++) {
                 var bIsDark = oQRCode.isDark(row, col);
                 var nLeft = col * nWidth;
                 var nTop = row * nHeight;
                 _oContext.setStrokeStyle(bIsDark ? _htOption.colorDark : _htOption.colorLight)
+                // _oContext.setStrokeStyle('yellow')
                 _oContext.setLineWidth(1)
                 _oContext.setFillStyle(bIsDark ? _htOption.colorDark : _htOption.colorLight)
-                _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
+                // _oContext.setFillStyle('red')
+                if (bIsDark) {
+                    _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
+                }
 
                 // 안티 앨리어싱 방지 처리
-                _oContext.strokeRect(
-                    Math.floor(nLeft) + 0.5,
-                    Math.floor(nTop) + 0.5,
-                    nRoundedWidth,
-                    nRoundedHeight
-                );
+                // if (bIsDark) {
+                    _oContext.strokeRect(
+                        Math.floor(nLeft) + 0.5,
+                        Math.floor(nTop) + 0.5,
+                        nRoundedWidth,
+                        nRoundedHeight
+                    );
 
-                _oContext.strokeRect(
-                    Math.ceil(nLeft) - 0.5,
-                    Math.ceil(nTop) - 0.5,
-                    nRoundedWidth,
-                    nRoundedHeight
-                );
+                    _oContext.strokeRect(
+                        Math.ceil(nLeft) - 0.5,
+                        Math.ceil(nTop) - 0.5,
+                        nRoundedWidth,
+                        nRoundedHeight
+                    );
+                // }
+                // _oContext.fillRect(
+                //     Math.floor(nLeft) + 0.5,
+                //     Math.floor(nTop) + 0.5,
+                //     nRoundedWidth,
+                //     nRoundedHeight
+                // );
+                // _oContext.fillRect(
+                //     Math.ceil(nLeft) - 0.5,
+                //     Math.ceil(nTop) - 0.5,
+                //     nRoundedWidth,
+                //     nRoundedHeight
+                // );
+                // _oContext.clearRect(
+                //     Math.floor(nLeft) + 0.5,
+                //     Math.floor(nTop) + 0.5,
+                //     nRoundedWidth,
+                //     nRoundedHeight
+                // );
+                // _oContext.clearRect(
+                //     Math.ceil(nLeft) - 0.5,
+                //     Math.ceil(nTop) - 0.5,
+                //     nRoundedWidth,
+                //     nRoundedHeight
+                // );
             }
         }
 
         _oContext.draw()
     };
 
-    QRCode.prototype.exportImage = function(callback) {
-        if(!callback) {
+    QRCode.prototype.exportImage = function (callback) {
+        if (!callback) {
             return
         }
         wx.canvasToTempFilePath({
