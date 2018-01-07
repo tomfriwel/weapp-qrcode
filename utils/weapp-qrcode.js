@@ -342,25 +342,25 @@ var QRCode;
                 _oContext.setLineWidth(1)
                 _oContext.setFillStyle(bIsDark ? _htOption.colorDark : _htOption.colorLight)
                 // _oContext.setFillStyle('red')
-                if (bIsDark) {
-                    _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
-                }
+                // if (bIsDark) {
+                _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
+                // }
 
                 // 안티 앨리어싱 방지 처리
                 // if (bIsDark) {
-                    _oContext.strokeRect(
-                        Math.floor(nLeft) + 0.5,
-                        Math.floor(nTop) + 0.5,
-                        nRoundedWidth,
-                        nRoundedHeight
-                    );
+                _oContext.strokeRect(
+                    Math.floor(nLeft) + 0.5,
+                    Math.floor(nTop) + 0.5,
+                    nRoundedWidth,
+                    nRoundedHeight
+                );
 
-                    _oContext.strokeRect(
-                        Math.ceil(nLeft) - 0.5,
-                        Math.ceil(nTop) - 0.5,
-                        nRoundedWidth,
-                        nRoundedHeight
-                    );
+                _oContext.strokeRect(
+                    Math.ceil(nLeft) - 0.5,
+                    Math.ceil(nTop) - 0.5,
+                    nRoundedWidth,
+                    nRoundedHeight
+                );
                 // }
                 // _oContext.fillRect(
                 //     Math.floor(nLeft) + 0.5,
