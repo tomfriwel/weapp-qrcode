@@ -15,6 +15,11 @@
 
 ## 使用
 
+页面`wxml`中放置绘制二维码的`canvas`:
+```
+<canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+```
+
 页面`js`中引入:
 ```
 var QRCode = require('../../utils/weapp-qrcode.js')
@@ -22,6 +27,7 @@ var QRCode = require('../../utils/weapp-qrcode.js')
 
 页面加载好后:
 ```
+//传入wxml中二维码canvas的canvas-id
 var qrcode = new QRCode('canvas', {
     text: "https://github.com/tomfriwel/weapp-qrcode",
     width: 150,
