@@ -50,3 +50,7 @@ var qrcode = new QRCode('canvas', {
 ## 主要流程
 
 ![主流程](http://upload-images.jianshu.io/upload_images/2158535-eb145383b2c50518.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
+
+## TODO
+
+* https://github.com/SumiMakito/Awesome-qr.js
