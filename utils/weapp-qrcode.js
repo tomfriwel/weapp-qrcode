@@ -318,7 +318,13 @@ var QRCode;
     };
 
     QRCode.prototype.makeImage = function () {
-        var _oContext = wx.createCanvasContext(this.canvasId)
+        var _oContext
+        if (this._htOption.usingIn) {
+            _oContext = wx.createCanvasContext(this.canvasId, this._htOption.usingIn)
+        }
+        else {
+            _oContext = wx.createCanvasContext(this.canvasId)
+        }
         var _htOption = this._htOption;
         var oQRCode = this._oQRCode
 

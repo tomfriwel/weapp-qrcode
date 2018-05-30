@@ -1,0 +1,8 @@
+<!--components/myComponent.wxml-->
+<view class='input-wrapper'>
+    <input bindinput='inputHandler' bindconfirm='confirmHandler' placeholder='输入需要转换为二维码的字符串' value='{{text}}'></input>
+</view>
+<view class='button-wrapper'>
+    <button bindtap='tapHandler'>转为二维码</button>
+</view>
+<canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
