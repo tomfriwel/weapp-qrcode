@@ -26,9 +26,10 @@ var QRCode = require('../../utils/weapp-qrcode.js')
 ```
 
 页面加载好后:
-```
+```js
 //传入wxml中二维码canvas的canvas-id
 var qrcode = new QRCode('canvas', {
+    // usingIn: this,
     text: "https://github.com/tomfriwel/weapp-qrcode",
     width: 150,
     height: 150,
@@ -37,6 +38,9 @@ var qrcode = new QRCode('canvas', {
     correctLevel: QRCode.CorrectLevel.H,
 });
 ```
+
+`usingIn`为可选参数，详情清查卡[在自定义组件使用时失效及解决思路 #1](https://github.com/tomfriwel/weapp-qrcode/issues/1)
+
 `text`为需要转化为二维码的字符串；
 
 `width`和`height`为绘制出的二维码长宽，这里设置为跟`canvas`同样的长宽；

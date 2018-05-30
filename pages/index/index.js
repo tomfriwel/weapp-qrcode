@@ -10,6 +10,7 @@ Page({
     },
     onLoad: function (options) {
         qrcode = new QRCode('canvas', {
+            // usingIn: this,
             text: "https://github.com/tomfriwel/weapp-qrcode",
             image:'/images/bg.jpg',
             width: 150,
