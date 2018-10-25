@@ -51,6 +51,15 @@ var qrcode = new QRCode('canvas', {
 
 如果需要再次生成二维码，调用`qrcode.makeCode('text you want convert')`。
 
+`wxss`里需要设置同等的长宽，比如上面初始化时的长宽为`150`，那么：
+```
+.canvas {
+    //...
+    width: 150px;
+    height: 150px;
+}
+```
+
 ## 主要流程
 
 ![主流程](http://upload-images.jianshu.io/upload_images/2158535-eb145383b2c50518.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
