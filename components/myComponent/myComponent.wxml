@@ -6,3 +6,4 @@
     <button bindtap='tapHandler'>转为二维码</button>
 </view>
 <canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+<view class='tip'>长按保存</view>

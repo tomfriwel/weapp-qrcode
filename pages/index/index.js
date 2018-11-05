@@ -34,6 +34,7 @@ Page({
         // 传入字符串生成qrcode
         qrcode.makeCode(this.data.text)
     },
+    // 长按保存
     save: function () {
         console.log('save')
         wx.showActionSheet({
