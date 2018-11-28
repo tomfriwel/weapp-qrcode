@@ -1,20 +1,26 @@
-// pages/index/index.js
+// pages/responsive/responsive.js
 var QRCode = require('../../utils/weapp-qrcode.js')
 var qrcode;
 
+const W = wx.getSystemInfoSync().windowWidth;
+const rate = 750.0 / W;
+
+// 300rpx 在6s上为 150px
+const code_w = 300 / rate;
 
 Page({
     data: {
         text: 'https://github.com/tomfriwel/weapp-qrcode',
-        image: ''
+        image: '',
+        code_w: code_w
     },
     onLoad: function (options) {
         qrcode = new QRCode('canvas', {
             // usingIn: this,
             text: "https://github.com/tomfriwel/weapp-qrcode",
-            image:'/images/bg.jpg',
-            width: 150,
-            height: 150,
+            image: '/images/bg.jpg',
+            width: code_w,
+            height: code_w,
             colorDark: "#1CA4FC",
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,

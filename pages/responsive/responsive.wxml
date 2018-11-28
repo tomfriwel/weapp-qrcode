@@ -1,0 +1,9 @@
+<!--pages/responsive/responsive.wxml-->
+<view class='input-wrapper'>
+    <input bindinput='inputHandler' bindconfirm='confirmHandler' placeholder='输入需要转换为二维码的字符串' value='{{text}}'></input>
+</view>
+<view class='button-wrapper'>
+    <button bindtap='tapHandler'>转为二维码</button>
+</view>
+<canvas class='canvas' style="width:{{code_w}}px; height:{{code_w}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
+<view class='tip'>长按保存</view>

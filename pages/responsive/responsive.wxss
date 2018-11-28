@@ -1,0 +1,32 @@
+/* pages/responsive/responsive.wxss */
+
+.input-wrapper {
+    margin: 40rpx auto 0 auto;
+    width: 600rpx;
+    height: 88rpx;
+    border: 2rpx solid #ddd;
+    border-radius: 16rpx;
+    padding-left: 10rpx;
+    padding-right: 10rpx;
+}
+
+.input-wrapper input {
+    font-size: 32rpx;
+    line-height: 88rpx;
+    height: 100%;
+}
+
+.button-wrapper {
+    margin-top: 40rpx;
+}
+
+.canvas {
+    margin: 220rpx auto;
+    /* width: 150px;
+    height: 150px; */
+    /* border: 1px solid black; */
+}
+
+.tip {
+    text-align: center;
+}

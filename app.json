@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/responsive/responsive",
         "pages/index/index",
         "pages/useInComponent/useInComponent"
     ],
