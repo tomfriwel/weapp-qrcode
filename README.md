@@ -15,7 +15,7 @@
 
 ## 使用（自适应版本）
 
-参考`pages/responsive/responsive`，设置`width`和`height`的时候稍微所有不同。
+完整代码请参考`pages/responsive/responsive`，设置`width`和`height`的时候稍微所有不同。
 
 `canvas`的长宽通过计算获得
 ```js
@@ -55,6 +55,8 @@ Page({
 `wxss`中的`canvas`样式不再设置长宽。这样后就达到了自适应的效果，可以在不同设备上进行查看。
 
 ## 使用（非自适应）
+
+完整代码请参考`pages/index/index`
 
 页面`wxml`中放置绘制二维码的`canvas`:
 ```
