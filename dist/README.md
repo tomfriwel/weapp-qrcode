@@ -13,7 +13,51 @@
 ![截图2](http://upload-images.jianshu.io/upload_images/2158535-e83a4b25271ab401.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
 ![gif](http://upload-images.jianshu.io/upload_images/2158535-1aebcd12a2ff1272.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
 
-## 使用
+## 使用（自适应版本，使用`rpx`为单位）
+
+完整代码请参考`pages/responsive/responsive`，设置`width`和`height`的时候稍微所有不同。
+
+`canvas`的长宽通过计算获得
+```js
+const QRCode = require('../../utils/weapp-qrcode.js')
+import rpx2px from '../../utils/rpx2px.js'
+let qrcode;
+
+// 300rpx 在6s上为 150px
+const qrcodeWidth = rpx2px(300)
+
+Page({
+    data: {
+        ...
+        qrcodeWidth: qrcodeWidth,
+        ...
+    },
+    onLoad: function (options) {
+        qrcode = new QRCode('canvas', {
+            // usingIn: this,
+            text: "https://github.com/tomfriwel/weapp-qrcode",
+            image: '/images/bg.jpg',
+            width: qrcodeWidth,
+            height: qrcodeWidth,
+            colorDark: "#1CA4FC",
+            colorLight: "white",
+            correctLevel: QRCode.CorrectLevel.H,
+        });
+    },
+    ...
+})
+```
+
+`wxml`页面中：
+```html
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
+```
+
+`wxss`中的`canvas`样式不再设置长宽。这样后就达到了自适应的效果，可以在不同设备上进行查看。
+
+## 使用（非自适应）
+
+完整代码请参考`pages/index/index`
 
 页面`wxml`中放置绘制二维码的`canvas`:
 ```
@@ -28,6 +72,7 @@ var QRCode = require('../../utils/weapp-qrcode.js')
 页面加载好后:
 ```js
 //传入wxml中二维码canvas的canvas-id
+//单位为px
 var qrcode = new QRCode('canvas', {
     // usingIn: this,
     text: "https://github.com/tomfriwel/weapp-qrcode",
@@ -50,6 +95,15 @@ var qrcode = new QRCode('canvas', {
 `correctLevel`没有细看源码，命名上看应该是准确度；
 
 如果需要再次生成二维码，调用`qrcode.makeCode('text you want convert')`。
+
+`wxss`里需要设置同等的长宽，比如上面初始化时的长宽为`150`，那么：
+```
+.canvas {
+    //...
+    width: 150px;
+    height: 150px;
+}
+```
 
 ## 主要流程
 

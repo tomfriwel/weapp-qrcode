@@ -398,6 +398,7 @@ var QRCode;
         _oContext.draw()
     };
 
+    // 保存为图片，将临时路径传给回调
     QRCode.prototype.exportImage = function (callback) {
         if (!callback) {
             return
