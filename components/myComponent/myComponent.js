@@ -1,39 +1,32 @@
 // components/myComponent.js
-var QRCode = require('../../utils/weapp-qrcode.js')
+const QRCode = require('../../utils/weapp-qrcode.js')
+import rpx2px from '../../utils/rpx2px.js'
+let qrcode;
 
-var qrcode;
+// 300rpx 在6s上为 150px
+const qrcodeWidth = rpx2px(300)
 
 Component({
-    /**
-     * 组件的属性列表
-     */
     properties: {
 
     },
-
-    /**
-     * 组件的初始数据
-     */
     data: {
         text: 'https://github.com/tomfriwel/weapp-qrcode',
-        image: ''
+        image: '',
+        qrcodeWidth
     },
     ready: function() {
         qrcode = new QRCode('canvas', {
-            usingIn: this,
+            usingIn: this, // usingIn 如果放到组件里使用需要加这个参数
             text: "https://github.com/tomfriwel/weapp-qrcode",
             image: '/images/bg.jpg',
-            width: 150,
-            height: 150,
+            width: qrcodeWidth,
+            height: qrcodeWidth,
             colorDark: "#1CA4FC",
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
     },
-
-    /**
-     * 组件的方法列表
-     */
     methods: {
         confirmHandler: function (e) {
             var value = e.detail.value

@@ -5,5 +5,5 @@
 <view class='button-wrapper'>
     <button bindtap='tapHandler'>转为二维码</button>
 </view>
-<canvas class='canvas' style="width:{{code_w}}px; height:{{code_w}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
 <view class='tip'>长按保存</view>
