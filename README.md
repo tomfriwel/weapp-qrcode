@@ -13,22 +13,23 @@
 ![截图2](http://upload-images.jianshu.io/upload_images/2158535-e83a4b25271ab401.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
 ![gif](http://upload-images.jianshu.io/upload_images/2158535-1aebcd12a2ff1272.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
 
-## 使用（自适应版本）
+## 使用（自适应版本，使用`rpx`为单位）
 
 完整代码请参考`pages/responsive/responsive`，设置`width`和`height`的时候稍微所有不同。
 
 `canvas`的长宽通过计算获得
 ```js
-const W = wx.getSystemInfoSync().windowWidth;
-const rate = 750.0 / W;
+const QRCode = require('../../utils/weapp-qrcode.js')
+import rpx2px from '../../utils/rpx2px.js'
+let qrcode;
 
 // 300rpx 在6s上为 150px
-const qrcode_w = 300 / rate;
+const qrcodeWidth = rpx2px(300)
 
 Page({
     data: {
         ...
-        qrcode_w: qrcode_w,
+        qrcodeWidth: qrcodeWidth,
         ...
     },
     onLoad: function (options) {
@@ -36,8 +37,8 @@ Page({
             // usingIn: this,
             text: "https://github.com/tomfriwel/weapp-qrcode",
             image: '/images/bg.jpg',
-            width: qrcode_w,
-            height: qrcode_w,
+            width: qrcodeWidth,
+            height: qrcodeWidth,
             colorDark: "#1CA4FC",
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
@@ -49,7 +50,7 @@ Page({
 
 `wxml`页面中：
 ```html
-<canvas class='canvas' style="width:{{qrcode_w}}px; height:{{qrcode_w}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
 ```
 
 `wxss`中的`canvas`样式不再设置长宽。这样后就达到了自适应的效果，可以在不同设备上进行查看。
