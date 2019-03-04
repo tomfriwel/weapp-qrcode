@@ -12,7 +12,7 @@
 ![截图3](./doc-images/s3.png)
 ![截图1](./doc-images/screenshot0.png)
 ![截图2](./doc-images/screenshot2.png)
-![gif](./doc-images/screenshot1.git)
+![gif](./doc-images/screenshot1.gif)
 
 ## 使用（自适应版本，使用`rpx`为单位）
 
