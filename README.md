@@ -9,9 +9,10 @@
 
 ## 截图
 
-![截图1](http://upload-images.jianshu.io/upload_images/2158535-a571aa52e76c5fd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
-![截图2](http://upload-images.jianshu.io/upload_images/2158535-e83a4b25271ab401.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
-![gif](http://upload-images.jianshu.io/upload_images/2158535-1aebcd12a2ff1272.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
+![截图3](./doc-images/s3.png)
+![截图1](./doc-images/screenshot0.png)
+![截图2](./doc-images/screenshot2.png)
+![gif](./doc-images/screenshot1.git)
 
 ## 使用（自适应版本，使用`rpx`为单位）
 
@@ -107,7 +108,7 @@ var qrcode = new QRCode('canvas', {
 
 ## 主要流程
 
-![主流程](http://upload-images.jianshu.io/upload_images/2158535-eb145383b2c50518.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
+![主流程](./doc-images/weapp-qrcode.001.png)
 
 ## TODO
 
