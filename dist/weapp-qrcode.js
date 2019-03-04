@@ -306,22 +306,18 @@ var QRCode;
         this.canvasId = canvasId
 
         if (this._htOption.text && this.canvasId) {
-            this.makeCode(this._htOption.text);
-        }
-        
-        if (callBack) {
-          this.callBack = callBack
+            this.makeCode(this._htOption.text, callBack ? callBack:false);
         }
     };
 
-    QRCode.prototype.makeCode = function (sText) {
+    QRCode.prototype.makeCode = function (sText, callBack) {
         this._oQRCode = new QRCodeModel(_getTypeNumber(sText, this._htOption.correctLevel), this._htOption.correctLevel);
         this._oQRCode.addData(sText);
         this._oQRCode.make();
-        this.makeImage();
+        this.makeImage(callBack);
     };
 
-    QRCode.prototype.makeImage = function () {
+    QRCode.prototype.makeImage = function (callBack) {
         var _oContext
         if (this._htOption.usingIn) {
             _oContext = wx.createCanvasContext(this.canvasId, this._htOption.usingIn)
@@ -400,19 +396,19 @@ var QRCode;
         }
 
         _oContext.draw(false, () => {
-            setTimeout(() => {
-              wx.canvasToTempFilePath({
-                canvasId: this.canvasId,
-                success: (res) => {
-                  if (this.callBack){
-                    this.callBack(res.tempFilePath);
-                  }
-                },
-                fail: (err) => {
-                  this.triggerEvent('fail', err);
-                },
-              }, this);
-            }, 300);
+            if (callBack && typeof callBack === "function") {
+              setTimeout(() => {
+                wx.canvasToTempFilePath({
+                  canvasId: this.canvasId,
+                  success: (res) => {
+                    callBack(res.tempFilePath);
+                  },
+                  fail: (err) => {
+                    this.triggerEvent('fail', err);
+                  },
+                }, this);
+              }, 300);
+            }
         })
     };
 
