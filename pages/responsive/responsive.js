@@ -12,11 +12,15 @@ Page({
         image: '',
         // 用于设置wxml里canvas的width和height样式
         qrcodeWidth: qrcodeWidth,
+        imgsrc: ''
     },
     onLoad: function(options) {
+    },
+    onReady() {
+        const z = this
         qrcode = new QRCode('canvas', {
             usingIn: this, // usingIn 如果放到组件里使用需要加这个参数
-            text: "https://github.com/tomfriwel/weapp-qrcode",
+            // text: "https://github.com/tomfriwel/weapp-qrcode",
             image: '/images/bg.jpg',
             width: qrcodeWidth,
             height: qrcodeWidth,
@@ -24,10 +28,27 @@ Page({
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
+
+        this.renderCode(this.data.text)
     },
     confirmHandler: function(e) {
-        var value = e.detail.value
-        qrcode.makeCode(value)
+        let {
+            value
+        } = e.detail
+        this.renderCode(value)
+    },
+    renderCode(value) {
+        const z = this
+        console.log('make handler')
+        qrcode.makeCode(value, () => {
+            console.log('make')
+            qrcode.exportImage(function (path) {
+                console.log(path)
+                z.setData({
+                    imgsrc: path
+                })
+            })
+        })
     },
     inputHandler: function(e) {
         var value = e.detail.value
@@ -36,8 +57,7 @@ Page({
         })
     },
     tapHandler: function() {
-        // 传入字符串生成qrcode
-        qrcode.makeCode(this.data.text)
+        this.renderCode(this.data.text)
     },
     // 长按保存
     save: function() {

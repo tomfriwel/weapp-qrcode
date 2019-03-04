@@ -310,14 +310,15 @@ var QRCode;
         }
     };
 
-    QRCode.prototype.makeCode = function (sText) {
+    QRCode.prototype.makeCode = function (sText, callback) {
         this._oQRCode = new QRCodeModel(_getTypeNumber(sText, this._htOption.correctLevel), this._htOption.correctLevel);
         this._oQRCode.addData(sText);
         this._oQRCode.make();
-        this.makeImage();
+        this.makeImage(callback);
     };
 
-    QRCode.prototype.makeImage = function () {
+    QRCode.prototype.makeImage = function (callback) {
+        console.log('makeImage')
         var _oContext
         if (this._htOption.usingIn) {
             _oContext = wx.createCanvasContext(this.canvasId, this._htOption.usingIn)
@@ -395,11 +396,12 @@ var QRCode;
             }
         }
 
-        _oContext.draw()
+        _oContext.draw(false, callback)
     };
 
     // 保存为图片，将临时路径传给回调
     QRCode.prototype.exportImage = function (callback) {
+        console.log('exportImage')
         if (!callback) {
             return
         }
@@ -414,6 +416,9 @@ var QRCode;
             success: function (res) {
                 console.log(res.tempFilePath)
                 callback(res.tempFilePath)
+            },
+            fail:res=>{
+                console.log(res)
             }
         })
     }
