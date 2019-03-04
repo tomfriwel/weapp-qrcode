@@ -29,7 +29,15 @@ Page({
             correctLevel: QRCode.CorrectLevel.H,
         });
 
-        this.renderCode(this.data.text)
+        // 生成图片，绘制完成后调用回调
+        qrcode.makeCode(z.data.text, () => {
+            // 回调
+            qrcode.exportImage(function (path) {
+                z.setData({
+                    imgsrc: path
+                })
+            })
+        })
     },
     confirmHandler: function(e) {
         let {

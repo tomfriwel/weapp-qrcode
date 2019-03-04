@@ -318,7 +318,6 @@ var QRCode;
     };
 
     QRCode.prototype.makeImage = function (callback) {
-        console.log('makeImage')
         var _oContext
         if (this._htOption.usingIn) {
             _oContext = wx.createCanvasContext(this.canvasId, this._htOption.usingIn)
@@ -401,7 +400,6 @@ var QRCode;
 
     // 保存为图片，将临时路径传给回调
     QRCode.prototype.exportImage = function (callback) {
-        console.log('exportImage')
         if (!callback) {
             return
         }
@@ -414,7 +412,6 @@ var QRCode;
             destHeight: this._htOption.height,
             canvasId: this.canvasId,
             success: function (res) {
-                console.log(res.tempFilePath)
                 callback(res.tempFilePath)
             },
             fail:res=>{
