@@ -1,0 +1,18 @@
+<!--pages/test/test.wxml-->
+<view class='input-wrapper'>
+    <input bindinput='inputHandler' bindconfirm='confirmHandler' placeholder='输入需要转换为二维码的字符串' value='{{text}}'></input>
+</view>
+<view class='button-wrapper'>
+    <button bindtap='tapHandler'>转为二维码</button>
+    <button bindtap='test'>test</button>
+</view>
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px; background:lightblue;" canvas-id='canvas' bindlongtap='save'></canvas>
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='temp'></canvas>
+
+<!-- image显示 -->
+<view class='tip'>长按保存</view>
+
+<view class='line'></view>
+
+<image src='{{imgsrc}}' style="display: block;margin:20rpx auto;width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;"></image>
+<view class='tip'>以图片的形式显示</view>
