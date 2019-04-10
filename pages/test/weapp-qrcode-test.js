@@ -1291,7 +1291,7 @@ var QRCode;
             logoScale: 0.2,
             logoMargin: 6,
             logoCornerRadius: 8,
-            whiteMargin: false,
+            whiteMargin: true,
             dotScale: 0.35,
             maskedDots: false,
             autoColor: true,
@@ -1448,7 +1448,8 @@ var QRCode;
         var viewportSize = nSize * nCount;
         var size = viewportSize + 2 * margin;
 
-
+        console.log("rawSize", rawSize)
+        console.log("nCount", nCount)
         console.log("margin", margin)
         console.log("whiteMargin", whiteMargin)
         console.log("nSize", nSize)
@@ -1514,12 +1515,13 @@ var QRCode;
                  0, 0, _htOption.backgroundImage.width, _htOption.backgroundImage.height,
                  whiteMargin ? 0 : -margin, whiteMargin ? 0 : -margin, whiteMargin ? viewportSize : size, whiteMargin ? viewportSize : size);
                  */
+                // _oContext.translate(-margin, -margin)
                 _oContext.drawImage(_htOption.backgroundImage,
                     0, 0, imageInfo.width, imageInfo.height,
                     0, 0, size, size);
                 _oContext.setFillStyle(backgroundDimming);
                 _oContext.fillRect(0, 0, size, size);
-
+                // _oContext.translate(margin, margin)
                 // _bContext.drawImage(_htOption.backgroundImage,
                 //     0, 0, _htOption.backgroundImage.width, _htOption.backgroundImage.height,
                 //     0, 0, size, size);

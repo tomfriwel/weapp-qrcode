@@ -4,7 +4,7 @@ import rpx2px from '../../utils/rpx2px.js'
 let qrcode;
 
 // 300rpx 在6s上为 150px
-const qrcodeWidth = rpx2px(600)
+const qrcodeWidth = rpx2px(400)
 let src = '/images/test-w.png'
 
 Page({
@@ -23,7 +23,7 @@ Page({
             usingIn: this, // usingIn 如果放到组件里使用需要加这个参数
             // text: "https://github.com/tomfriwel/weapp-qrcode",
             backgroundImage: src,
-            logoImage: '/images/test.jpg',
+            // logoImage: '/images/test.jpg',
             width: qrcodeWidth,
             height: qrcodeWidth,
             size: qrcodeWidth,
