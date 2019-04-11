@@ -1407,6 +1407,12 @@ var QRCode;
         _oContext.draw(false, callback)
     };
 
+    QRCode.prototype.testMakeCode = function (sText, data, imageInfo) {
+        this._oQRCode = new QRCodeModel(_getTypeNumber(sText, this._htOption.correctLevel), this._htOption.correctLevel);
+        this._oQRCode.addData(sText);
+        this._oQRCode.make();
+        this.testMake(data, imageInfo);
+    };
     QRCode.prototype.testMake = function(data, imageInfo) {
         var canvasId = this.canvasId
         var _oContext;
@@ -1535,7 +1541,7 @@ var QRCode;
             _oContext.fillRect(0, 0, size, size);
         }
 
-        _oContext.translate(margin, margin);
+        // _oContext.translate(margin, margin);
 
         if (_htOption.binarize) {
             _htOption.colorDark = "#000000";

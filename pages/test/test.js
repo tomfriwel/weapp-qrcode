@@ -29,7 +29,7 @@ Page({
             size: qrcodeWidth,
             colorDark: "#DA4967",
             colorLight: "white",
-            margin:20,
+            margin:0,
             correctLevel: QRCode.CorrectLevel.H,
         });
 
@@ -44,6 +44,7 @@ Page({
         })
     },
     test() {
+        const z = this
         const canvasId = 'temp'
         let ctx = wx.createCanvasContext(canvasId, this)
         ctx.drawImage(src, 0, 0, qrcodeWidth, qrcodeWidth)
@@ -60,7 +61,7 @@ Page({
                     wx.getImageInfo({
                         src,
                         success: function(imageInfo) {
-                            qrcode.testMake(res, imageInfo)
+                            qrcode.testMakeCode(z.data.text, res, imageInfo)
                         },
                     })
                 },
