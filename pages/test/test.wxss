@@ -33,9 +33,17 @@ page {
     margin: 20rpx auto;
 }
 
-
 .line {
     width: 100%;
     height: 2rpx;
     background: #ddd;
 }
+
+/* .line {
+    position: absolute;
+    top:0;
+    left: 50%;
+    background: lightpink;
+    width: 2px;
+    height: 100vh;
+} */

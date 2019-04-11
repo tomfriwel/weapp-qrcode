@@ -7,7 +7,7 @@
     <button bindtap='test'>test</button>
 </view>
 <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
-<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='temp'></canvas>
+<canvas class='canvas' style="width:{{qrcodeWidth*quality}}px; height:{{qrcodeWidth*quality}}px;" canvas-id='temp'></canvas>
 
 <!-- image显示 -->
 <view class='tip'>长按保存</view>

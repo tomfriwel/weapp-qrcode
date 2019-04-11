@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/test/test",
         "pages/responsive/responsive",
+        "pages/test/test",
         "pages/useInComponent/useInComponent",
         "pages/index/index"
     ],

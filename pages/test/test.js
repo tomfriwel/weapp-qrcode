@@ -5,16 +5,20 @@ let qrcode;
 
 // 300rpx 在6s上为 150px
 const qrcodeWidth = rpx2px(600)
+const quality = 1
 // let src = '/images/test-w.png'
+// let src = '/images/test1.png'
 let src = '/images/bg.jpg'
+// let src = '/images/test0.jpg'
 
 Page({
     data: {
         text: 'https://github.com/tomfriwel/weapp-qrcode',
         image: '',
         // 用于设置wxml里canvas的width和height样式
-        qrcodeWidth: qrcodeWidth,
-        imgsrc: ''
+        qrcodeWidth,
+        imgsrc: '',
+        quality
     },
     onLoad: function(options) {
     },
@@ -24,15 +28,18 @@ Page({
             usingIn: this, // usingIn 如果放到组件里使用需要加这个参数
             // text: "https://github.com/tomfriwel/weapp-qrcode",
             backgroundImage: src,
-            // logoImage: '/images/test.jpg',
+            logoImage: '/images/bg.jpg',
             width: qrcodeWidth,
             height: qrcodeWidth,
             size: qrcodeWidth,
-            colorDark: "#DA4967",
-            colorLight: "white",
+            colorDark: "lightblue",
+            colorLight: "#ffffff",
+            // autoColor:false,
             tempCanvasId: 'temp',
             margin:10,
+            quality,
             correctLevel: QRCode.CorrectLevel.H,
+            // backgroundDimming: 'rgba(0,0,0,0)',  // 背景图片遮罩
         });
 
         // 生成图片，绘制完成后调用回调
@@ -46,29 +53,14 @@ Page({
         })
     },
     test() {
-        qrcode.testMakeCode(this.data.text)
-        // const z = this
-        // const canvasId = 'temp'
-        // let ctx = wx.createCanvasContext(canvasId, this)
-        // ctx.drawImage(src, 0, 0, qrcodeWidth, qrcodeWidth)
-        // ctx.draw(false, () => {
-        //     wx.canvasGetImageData({
-        //         canvasId: canvasId,
-        //         x: 0,
-        //         y: 0,
-        //         width: qrcodeWidth,
-        //         height: qrcodeWidth,
-        //         success(res) {
-        //             console.log(res)
-        //             // console.log(qrcode.getAverageRGB(res))
-        //             wx.getImageInfo({
-        //                 src,
-        //                 success: function(imageInfo) {
-        //                     qrcode.testMakeCode(z.data.text, res, imageInfo)
-        //                 },
-        //             })
-        //         },
-        //     })
+        const z = this
+        qrcode.testMakeCode(z.data.text)
+        // wx.chooseImage({
+        //     count:1,
+        //     sizeType: ['compressed'],
+        //     success: function(res) {
+        //         qrcode.testMakeCode(z.data.text, res.tempFilePaths[0])
+        //     },
         // })
     },
     confirmHandler: function(e) {
