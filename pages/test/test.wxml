@@ -6,7 +6,7 @@
     <button bindtap='tapHandler'>转为二维码</button>
     <button bindtap='test'>test</button>
 </view>
-<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px; background:lightblue;" canvas-id='canvas' bindlongtap='save'></canvas>
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
 <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='temp'></canvas>
 
 <!-- image显示 -->

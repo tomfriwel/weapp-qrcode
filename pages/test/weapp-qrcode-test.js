@@ -1262,6 +1262,7 @@ var QRCode;
         context.fillRect((centerX - 2) * nWidth, (centerY + 2) * nHeight, 4 * nWidth, nHeight);
         context.fillRect(centerX * nWidth, centerY * nHeight, nWidth, nHeight);
     }
+
     function _prepareRoundedCornerClip(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -1284,7 +1285,8 @@ var QRCode;
 
             // test add
             // margin: 0,
-            margin:20,
+            tempCanvasId: undefined,
+            margin: 20,
             backgroundImage: undefined,
             backgroundDimming: 'rgba(0,0,0,0.1)',
             logoImage: undefined,
@@ -1407,22 +1409,65 @@ var QRCode;
         _oContext.draw(false, callback)
     };
 
-    QRCode.prototype.testMakeCode = function (sText, data, imageInfo) {
+    QRCode.prototype.testMakeCode = function(sText) {
         this._oQRCode = new QRCodeModel(_getTypeNumber(sText, this._htOption.correctLevel), this._htOption.correctLevel);
         this._oQRCode.addData(sText);
         this._oQRCode.make();
-        this.testMake(data, imageInfo);
+        var _htOption = this._htOption;
+        if (_htOption.backgroundImage !== undefined) {
+            var canvasId = _htOption.tempCanvasId || this.canvasId
+            const z = this
+            let {
+                backgroundImage
+            } = _htOption
+            var rawSize = _htOption.size;
+            var rawMargin = _htOption.margin;
+
+            if (rawMargin < 0 || rawMargin * 2 >= rawSize) {
+                rawMargin = 0;
+            }
+
+            var margin = Math.ceil(rawMargin);
+
+            var rawViewportSize = rawSize - 2 * rawMargin;
+
+            let ctx = wx.createCanvasContext(canvasId, this)
+            ctx.translate(margin, margin)
+            ctx.drawImage(backgroundImage, 0, 0, rawViewportSize, rawViewportSize)
+            ctx.draw(false, () => {
+                wx.canvasGetImageData({
+                    canvasId: canvasId,
+                    x: margin,
+                    y: margin,
+                    width: rawViewportSize,
+                    height: rawViewportSize,
+                    success(res) {
+                        // return
+                        wx.getImageInfo({
+                            src: backgroundImage,
+                            success: function(imageInfo) {
+                                z.testMake(res, imageInfo)
+                            },
+                        })
+                    },
+                })
+            })
+        }
+        // this.testMake(data, imageInfo);
     };
     QRCode.prototype.testMake = function(data, imageInfo) {
         var canvasId = this.canvasId
-        var _oContext;
+        var _htOption = this._htOption;
+        var tempCanvasId = _htOption.tempCanvasId || this.canvasId
+        var _oContext, _dContext;
 
         if (this._htOption.usingIn) {
-            _oContext = wx.createCanvasContext(this.canvasId, this._htOption.usingIn)
+            _oContext = wx.createCanvasContext(tempCanvasId, this._htOption.usingIn)
+            _dContext = wx.createCanvasContext(canvasId, this._htOption.usingIn)
         } else {
-            _oContext = wx.createCanvasContext(this.canvasId)
+            _oContext = wx.createCanvasContext(tempCanvasId)
+            _dContext = wx.createCanvasContext(canvasId)
         }
-        var _htOption = this._htOption;
         var oQRCode = this._oQRCode
 
         var nCount = oQRCode.getModuleCount();
@@ -1455,6 +1500,7 @@ var QRCode;
         var size = viewportSize + 2 * margin;
 
         console.log("rawSize", rawSize)
+        console.log("rawViewportSize", rawViewportSize)
         console.log("nCount", nCount)
         console.log("margin", margin)
         console.log("whiteMargin", whiteMargin)
@@ -1516,24 +1562,11 @@ var QRCode;
                 _bContext.fillStyle = "#ffffff";
                 _bContext.fill();
             } else {
-                /*
-                 _bContext.drawImage(_htOption.backgroundImage,
-                 0, 0, _htOption.backgroundImage.width, _htOption.backgroundImage.height,
-                 whiteMargin ? 0 : -margin, whiteMargin ? 0 : -margin, whiteMargin ? viewportSize : size, whiteMargin ? viewportSize : size);
-                 */
-                // _oContext.translate(-margin, -margin)
                 _oContext.drawImage(_htOption.backgroundImage,
                     0, 0, imageInfo.width, imageInfo.height,
-                    0, 0, size, size);
+                    0, 0, viewportSize, viewportSize);
                 _oContext.setFillStyle(backgroundDimming);
-                _oContext.fillRect(0, 0, size, size);
-                // _oContext.translate(margin, margin)
-                // _bContext.drawImage(_htOption.backgroundImage,
-                //     0, 0, _htOption.backgroundImage.width, _htOption.backgroundImage.height,
-                //     0, 0, size, size);
-                // _bContext.rect(0, 0, size, size);
-                // _bContext.fillStyle = backgroundDimming;
-                // _bContext.fill();
+                _oContext.fillRect(0, 0, viewportSize, viewportSize);
             }
         } else {
             // n
@@ -1654,13 +1687,13 @@ var QRCode;
         }
 
         // Fill the margin
-        if (whiteMargin) {
-            _oContext.setFillStyle('#FFFFFF');
-            _oContext.fillRect(-margin, -margin, size, margin);
-            _oContext.fillRect(-margin, viewportSize, size, margin);
-            _oContext.fillRect(viewportSize, -margin, margin, size);
-            _oContext.fillRect(-margin, -margin, margin, size);
-        }
+        // if (whiteMargin) {
+        //     _oContext.setFillStyle('#FFFFFF');
+        //     _oContext.fillRect(-margin, -margin, size, margin);
+        //     _oContext.fillRect(-margin, viewportSize, size, margin);
+        //     _oContext.fillRect(viewportSize, -margin, margin, size);
+        //     _oContext.fillRect(-margin, -margin, margin, size);
+        // }
 
         if (_htOption.logoImage !== undefined) {
             var logoScale = _htOption.logoScale;
@@ -1739,16 +1772,25 @@ var QRCode;
             // _fContext.drawImage(_tCanvas, 0, 0, rawSize, rawSize);
             // this._elCanvas = _fCanvas;
 
-            _oContext.draw(false, ()=>{
-                // wx.canvasToTempFilePath({
-                //     canvasId,
-                //     success: res => {
-                //         _oContext.drawImage(res.tempFilePath, 0, 0, rawSize, rawSize);
-                //         // wx.previewImage({
-                //         //     urls: [res.tempFilePath]
-                //         // })
-                //     }
-                // })
+            _oContext.draw(false, () => {
+                wx.canvasToTempFilePath({
+                    canvasId: tempCanvasId,
+                    width: viewportSize,
+                    height: viewportSize,
+                    success: res => {
+                        // return
+                        if (whiteMargin) {
+                            _dContext.setFillStyle('#FFFFFF');
+                            _dContext.fillRect(0, 0, rawSize, rawSize);
+                        }
+                        _dContext.translate(margin, margin)
+                        _dContext.drawImage(res.tempFilePath, 0, 0, rawViewportSize, rawViewportSize);
+                        _dContext.draw()
+                        // wx.previewImage({
+                        //     urls: [res.tempFilePath]
+                        // })
+                    }
+                })
             })
 
             // Painting work completed
@@ -1771,8 +1813,7 @@ var QRCode;
             //         console.error(e);
             //     }
             // }
-        }
-        else {
+        } else {
             var gifOutput;
 
             // Reuse in order to apply the patch

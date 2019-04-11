@@ -4,8 +4,9 @@ import rpx2px from '../../utils/rpx2px.js'
 let qrcode;
 
 // 300rpx 在6s上为 150px
-const qrcodeWidth = rpx2px(400)
-let src = '/images/test-w.png'
+const qrcodeWidth = rpx2px(600)
+// let src = '/images/test-w.png'
+let src = '/images/bg.jpg'
 
 Page({
     data: {
@@ -29,7 +30,8 @@ Page({
             size: qrcodeWidth,
             colorDark: "#DA4967",
             colorLight: "white",
-            margin:0,
+            tempCanvasId: 'temp',
+            margin:10,
             correctLevel: QRCode.CorrectLevel.H,
         });
 
@@ -44,35 +46,30 @@ Page({
         })
     },
     test() {
-        const z = this
-        const canvasId = 'temp'
-        let ctx = wx.createCanvasContext(canvasId, this)
-        ctx.drawImage(src, 0, 0, qrcodeWidth, qrcodeWidth)
-        ctx.draw(false, () => {
-            wx.canvasGetImageData({
-                canvasId: canvasId,
-                x: 0,
-                y: 0,
-                width: qrcodeWidth,
-                height: qrcodeWidth,
-                success(res) {
-                    console.log(res)
-                    // console.log(qrcode.getAverageRGB(res))
-                    wx.getImageInfo({
-                        src,
-                        success: function(imageInfo) {
-                            qrcode.testMakeCode(z.data.text, res, imageInfo)
-                        },
-                    })
-                },
-            })
-        })
-        wx.getImageInfo({
-            src: '/images/test.jpg',
-            success: res => {
-                console.log(res)
-            }
-        })
+        qrcode.testMakeCode(this.data.text)
+        // const z = this
+        // const canvasId = 'temp'
+        // let ctx = wx.createCanvasContext(canvasId, this)
+        // ctx.drawImage(src, 0, 0, qrcodeWidth, qrcodeWidth)
+        // ctx.draw(false, () => {
+        //     wx.canvasGetImageData({
+        //         canvasId: canvasId,
+        //         x: 0,
+        //         y: 0,
+        //         width: qrcodeWidth,
+        //         height: qrcodeWidth,
+        //         success(res) {
+        //             console.log(res)
+        //             // console.log(qrcode.getAverageRGB(res))
+        //             wx.getImageInfo({
+        //                 src,
+        //                 success: function(imageInfo) {
+        //                     qrcode.testMakeCode(z.data.text, res, imageInfo)
+        //                 },
+        //             })
+        //         },
+        //     })
+        // })
     },
     confirmHandler: function(e) {
         let {
