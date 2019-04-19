@@ -14,6 +14,9 @@
 ![截图2](./doc-images/screenshot2.png)
 ![gif](./doc-images/screenshot1.gif)
 
+## 背景图测试中...
+![gif](./doc-images/test.png)
+
 ## 使用（自适应版本，使用`rpx`为单位）
 
 完整代码请参考`pages/responsive/responsive`，设置`width`和`height`的时候稍微所有不同。
