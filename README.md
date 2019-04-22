@@ -14,7 +14,7 @@
 ![截图2](./doc-images/screenshot2.png)
 ![gif](./doc-images/screenshot1.gif)
 
-## 背景图测试中...
+## 背景图测试中...（页面`pages/test/test`）
 ![gif](./doc-images/test.png)
 
 ## 使用（自适应版本，使用`rpx`为单位）
