@@ -4,6 +4,15 @@
 </view>
 <view class='button-wrapper'>
     <button bindtap='tapHandler'>转为二维码</button>
+    <button bindtap='generateImage'>生成图片</button>
 </view>
-<canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+<!-- <canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas> -->
+<canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas' bindlongtap='save'></canvas>
+
+<!-- image显示 -->
 <view class='tip'>长按保存</view>
+
+<view class='line'></view>
+
+<image src='{{imgsrc}}' style="display: block;margin:20rpx auto;width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;"></image>
+<view class='tip'>以图片的形式显示</view>
