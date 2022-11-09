@@ -88,7 +88,7 @@ var qrcode = new QRCode('canvas', {
 });
 ```
 
-`usingIn`为可选参数，详情清查卡[在自定义组件使用时失效及解决思路 #1](https://github.com/tomfriwel/weapp-qrcode/issues/1)
+`usingIn`为可选参数，详情请查看[在自定义组件使用时失效及解决思路 #1](https://github.com/tomfriwel/weapp-qrcode/issues/1)
 
 `text`为需要转化为二维码的字符串；
 
